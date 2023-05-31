@@ -3,6 +3,8 @@ import { LoginPage } from "../auth/pages/LoginPage"
 import { useEffect } from "react";
 import { useAuthStore } from "../hooks/useAuthStore";
 import { ChallenguePage } from "../challengue_app/ChallenguePage";
+import { UsersAdmin } from "../challengue_app/pages/UsersAdmin";
+import { RegisterUser } from "../challengue_app/pages/RegisterUser";
 // import {ChallengePage} from "../challengue_app/ChallenguePage"
 export const AppRouter = () => {
     const { status, checkAuthToken } = useAuthStore();
@@ -14,10 +16,7 @@ export const AppRouter = () => {
         return (
             <h3>Cargando...</h3>
         )
-    }
-
-
-    return (
+    }    return (
         <Routes>
             {
                 (status === 'not-authenticated')
@@ -30,6 +29,8 @@ export const AppRouter = () => {
                     : (
                         <>
                             <Route path="/" element={<ChallenguePage />} />
+                            <Route path="/Usuarios" element={<UsersAdmin />} />
+                            <Route path="/Registro de usuarios" element={<RegisterUser />} />
                             <Route path="/*" element={<Navigate to="/" />} />
                         </>
                     )

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import challengueApi from '../api/challengueApi';
 import { onChecking, onLogin, clearErrorMessage, onLogout } from '../store/auth/authSlice';
+import Swal from 'sweetalert2';
 
 
 export const useAuthStore = () => {
@@ -26,18 +27,15 @@ export const useAuthStore = () => {
     }
 
     const startRegister = async ({ email, password, name }) => {
-        dispatch(onChecking());
         try {
             const { data } = await challengueApi.post('/auth/new', { email, password, name });
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
-            dispatch(onLogin({ name: data.name, uid: data.uid }));
-
+            Swal.fire('Éxito', 'El usuario fue creado con éxito', 'success');
+            
+            // dispatch(onLogin({ name: data.name, uid: data.uid }));
         } catch (error) {
-            dispatch(onLogout(error.response.data?.msg || '--'));
-            setTimeout(() => {
-                dispatch(clearErrorMessage());
-            }, 10);
+            Swal.fire('Error en registro', error.response.data?.msg, 'error');
         }
     }
 

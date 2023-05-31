@@ -1,19 +1,37 @@
 import { useAuthStore } from "../../hooks/useAuthStore"
+import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material';
+import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
 
-export const Navbar = () => {
+export const Navbar = ({ drawerWidth = 240 }) => {
     const { user } = useAuthStore();
+    const homeload = () => {
+        window.location.replace('/')
+    }
     return (
-        <div className="navbar navbar-dark bg-dark mb-4 px-4">
-            <span className="navbar-brand">
-                <i className="fas fa-calendar-alt"></i>
-                &nbsp;
-                Bienvenido: {user.name}
-            </span>
+        <AppBar
+            position='fixed'
+            sx={{
+                width: { sm: `calc(100% - ${drawerWidth}px)` },
+                ml: { sm: `${drawerWidth}px` }
+            }}
+        >
+            <Toolbar>
+                <IconButton
+                    color='inherit'
+                    edge="start"
+                    sx={{ mr: 2, display: { sm: 'none' } }}
+                >
+                    <MenuOutlined />
+                </IconButton>
 
-            <button className="btn btn-outline-danger">
-                <i className="fas fa-sign-out-alt"></i>
-                <span>Salir</span>
-            </button>
-        </div>
+                <Grid container direction='row' justifyContent='space-between' alignItems='center'>
+                    <Typography variant='h6' noWrap component='div' style={{ cursor: "pointer" }} onClick={homeload}> MIND Challengue </Typography>
+                    <IconButton color='blue'>
+                        <LogoutOutlined />
+                    </IconButton>
+                </Grid>
+
+            </Toolbar>
+        </AppBar>
     )
 }
