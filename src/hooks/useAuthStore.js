@@ -26,9 +26,9 @@ export const useAuthStore = () => {
         }
     }
 
-    const startRegister = async ({ email, password, name }) => {
+    const startRegister = async ({ email, password, name, user_type }) => {
         try {
-            const { data } = await challengueApi.post('/auth/new', { email, password, name });
+            const { data } = await challengueApi.post('/auth/new', { email, password, name, user_type });
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             Swal.fire('Éxito', 'El usuario fue creado con éxito', 'success');

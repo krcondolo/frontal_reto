@@ -9,7 +9,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
     }
     const clearData = () => {
         localStorage.clear();
-        window.location.reload();
+        window.location.replace('/')
     }
     return (
         <AppBar

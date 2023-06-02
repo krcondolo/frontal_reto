@@ -9,10 +9,11 @@ const registerFormFields = {
     registerEmail: '',
     registerPassword: '',
     registerPassword2: '',
+    registerUser_type: ''
 }
 
 export const RegisterUser = () => {
-    const { registerEmail, registerName, registerPassword, registerPassword2, onInputChange: onRegisterInputChange } = useForm(registerFormFields);
+    const { registerEmail, registerName, registerPassword, registerPassword2, registerUser_type, onInputChange: onRegisterInputChange } = useForm(registerFormFields);
     const { startRegister } = useAuthStore();
     const registerSubmit = (event) => {
         if (registerPassword !== registerPassword2) {
@@ -20,11 +21,9 @@ export const RegisterUser = () => {
             Swal.fire('Error en registro', 'Contraseñas no son iguales', 'error');
         } else {
             event.preventDefault();
-            startRegister({ name: registerName, email: registerEmail, password: registerPassword });
+            startRegister({ name: registerName, email: registerEmail, password: registerPassword, user_type: registerUser_type });
         }
     }
-
-
     return (
         <>
             <ChallengueLayout>
@@ -73,6 +72,16 @@ export const RegisterUser = () => {
                             />
                         </div>
 
+                        <div className="form-group mb-2">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Ingrese el tipo de usuario"
+                                name="registerUser_type"
+                                value={registerUser_type}
+                                onChange={onRegisterInputChange}
+                            />
+                        </div>
                         <div className="d-grid gap-2">
                             <input
                                 type="submit"

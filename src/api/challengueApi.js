@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const challengueApi = axios.create({
-    // baseURL: 'https://challenguemind.herokuapp.com/api/'
-    baseURL: "http://localhost:8000/api/"
+    baseURL: 'https://challenguemind.herokuapp.com/api/'
+    // baseURL: "http://localhost:8000/api/"
 });
 
 // Todo: configurar interceptores
