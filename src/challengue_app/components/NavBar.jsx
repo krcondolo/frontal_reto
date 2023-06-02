@@ -7,6 +7,10 @@ export const Navbar = ({ drawerWidth = 240 }) => {
     const homeload = () => {
         window.location.replace('/')
     }
+    const clearData = () => {
+        localStorage.clear();
+        window.location.reload();
+    }
     return (
         <AppBar
             position='fixed'
@@ -27,7 +31,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
                 <Grid container direction='row' justifyContent='space-between' alignItems='center'>
                     <Typography variant='h6' noWrap component='div' style={{ cursor: "pointer" }} onClick={homeload}> MIND Challengue </Typography>
                     <IconButton color='blue'>
-                        <LogoutOutlined />
+                        <LogoutOutlined onClick={clearData} />
                     </IconButton>
                 </Grid>
 

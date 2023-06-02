@@ -27,6 +27,9 @@ export const UsersAdmin = () => {
         {
             name: "Password", label: "Password", options: { filter: true, sort: true, }
         },
+        {
+            name: "Tipo de usuario", label: "Tipo", options: { filter: true, sort: true, }
+        },
 
     ];
 
@@ -37,19 +40,20 @@ export const UsersAdmin = () => {
     return (
         <>
             <ChallengueLayout>
-            <MUIDataTable
-                            title={"Sistemas"}
-                            data={data.map(dat => {
-                                return [
-                                    dat._id,
-                                    dat.name,
-                                    dat.email,
-                                    dat.password
-                                ]
-                            })}
-                            columns={columns}
-                            options={options}
-                        />
+                <MUIDataTable
+                    title={"Sistemas"}
+                    data={data.map(dat => {
+                        return [
+                            dat._id,
+                            dat.name,
+                            dat.email,
+                            dat.password,
+                            dat.user_type
+                        ]
+                    })}
+                    columns={columns}
+                    options={options}
+                />
 
             </ChallengueLayout>
         </>
