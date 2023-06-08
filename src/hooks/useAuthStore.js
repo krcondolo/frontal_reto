@@ -16,7 +16,7 @@ export const useAuthStore = () => {
             const { data } = await challengueApi.post('/auth', { email, password });
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
-            dispatch(onLogin({ name: data.name, uid: data.uid }));
+            dispatch(onLogin({ name: data.name, uid: data.uid, user_type: data.user_type }));
 
         } catch (error) {
             dispatch(onLogout('Credenciales incorrectas'));
@@ -32,7 +32,7 @@ export const useAuthStore = () => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
             Swal.fire('Éxito', 'El usuario fue creado con éxito', 'success');
-            
+
             // dispatch(onLogin({ name: data.name, uid: data.uid }));
         } catch (error) {
             Swal.fire('Error en registro', error.response.data?.msg, 'error');
