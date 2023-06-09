@@ -3,17 +3,24 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { useAuthStore } from '../../hooks/useAuthStore';
 import { useForm } from '../../hooks/useForm';
+import { FormControl } from "@mui/material";
+import { InputLabel } from "@mui/material";
+import { Select } from "@mui/material";
+import { MenuItem } from "@mui/material";
 
 const registerFormFields = {
     registerName: '',
     registerEmail: '',
     registerPassword: '',
     registerPassword2: '',
-    registerUser_type: ''
+    registerUser_type: '',
+    registerenglish_level: '',
+    registercon_tecn: '',
+    registerlink_cv: '',
 }
 
 export const RegisterUser = () => {
-    const { registerEmail, registerName, registerPassword, registerPassword2, registerUser_type, onInputChange: onRegisterInputChange } = useForm(registerFormFields);
+    const { registerEmail, registerName, registerPassword, registerPassword2, registerUser_type, registerenglish_level, registercon_tecn, registerlink_cv, onInputChange: onRegisterInputChange } = useForm(registerFormFields);
     const { startRegister } = useAuthStore();
     const registerSubmit = (event) => {
         if (registerPassword !== registerPassword2) {
@@ -21,9 +28,63 @@ export const RegisterUser = () => {
             Swal.fire('Error en registro', 'Contraseñas no son iguales', 'error');
         } else {
             event.preventDefault();
-            startRegister({ name: registerName, email: registerEmail, password: registerPassword, user_type: registerUser_type });
+            startRegister({
+                name: registerName, email: registerEmail, password: registerPassword, user_type: registerUser_type, english_level: registerenglish_level, con_tecn: registercon_tecn, link_cv: registerlink_cv
+            });
+            resetForm(); // Limpiar los campos del formulario
+
         }
     }
+    const resetForm = () => {
+        onRegisterInputChange({
+            target: {
+                name: 'registerName',
+                value: ''
+            }
+        });
+        onRegisterInputChange({
+            target: {
+                name: 'registerEmail',
+                value: ''
+            }
+        });
+        onRegisterInputChange({
+            target: {
+                name: 'registerPassword',
+                value: ''
+            }
+        });
+        onRegisterInputChange({
+            target: {
+                name: 'registerPassword2',
+                value: ''
+            }
+        });
+        onRegisterInputChange({
+            target: {
+                name: 'registerUser_type',
+                value: ''
+            }
+        });
+        onRegisterInputChange({
+            target: {
+                name: 'registerenglish_level',
+                value: ''
+            }
+        });
+        onRegisterInputChange({
+            target: {
+                name: 'registercon_tecn',
+                value: ''
+            }
+        });
+        onRegisterInputChange({
+            target: {
+                name: 'registerlink_cv',
+                value: ''
+            }
+        });
+    };
     return (
         <>
             <ChallengueLayout>
@@ -73,12 +134,46 @@ export const RegisterUser = () => {
                         </div>
 
                         <div className="form-group mb-2">
+                            <FormControl fullWidth>
+                                <InputLabel>Tipo de usuario</InputLabel>
+                                <Select
+                                    value={registerUser_type}
+                                    onChange={onRegisterInputChange}
+                                    name="registerUser_type"
+                                    sx={{ backgroundColor: 'white' }}
+                                >
+                                    <MenuItem value="admin">Admin</MenuItem>
+                                    <MenuItem value="normal">Normal</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className="form-group mb-2">
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Ingrese el tipo de usuario"
-                                name="registerUser_type"
-                                value={registerUser_type}
+                                placeholder="Ingrese el nivel de inglés"
+                                name="registerenglish_level"
+                                value={registerenglish_level}
+                                onChange={onRegisterInputChange}
+                            />
+                        </div>
+                        <div className="form-group mb-2">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Ingrese conocimientos técnicos"
+                                name="registercon_tecn"
+                                value={registercon_tecn}
+                                onChange={onRegisterInputChange}
+                            />
+                        </div>
+                        <div className="form-group mb-2">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Ingrese link de CV"
+                                name="registerlink_cv"
+                                value={registerlink_cv}
                                 onChange={onRegisterInputChange}
                             />
                         </div>

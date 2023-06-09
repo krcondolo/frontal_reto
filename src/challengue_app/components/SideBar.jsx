@@ -5,6 +5,20 @@ import { Link } from 'react-router-dom';
 
 export const SideBar = ({ drawerWidth = 240 }) => {
     const { user } = useAuthStore();
+    const tipo_usuario = user.user_type;
+
+    const getMenuItems = () => {
+        if (tipo_usuario === 'super') {
+            // Menú para el tipo de usuario "super"
+            return ['Usuarios', 'Registro de usuarios', 'Cuentas', 'Registro de cuentas', 'Movimientos', 'Logs',];
+        } else if (tipo_usuario === 'admin') {
+            // Menú para el tipo de usuario "admin"
+            return ['Usuarios', 'Registro de usuarios', 'Cuentas', 'Registro de cuentas', 'Movimientos', 'Logs',];
+        } else {
+            // Menú para el tipo de usuario "normal"
+            return ['Perfil'];
+        }
+    };
     return (
         <Box
             component='nav'
@@ -27,7 +41,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
                 <List>
                     {
-                        ['Usuarios', 'Registro de usuarios'].map(text => (
+                        getMenuItems().map(text => (
                             <ListItem key={text} disablePadding>
                                 <ListItemButton>
                                     <Grid container>
